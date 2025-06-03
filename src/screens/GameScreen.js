@@ -3,6 +3,9 @@ import { Text, StyleSheet, View, Alert } from "react-native";
 import { PrimaryButton } from "../components/ui/PrimaryButton";
 import { Title } from "../components/ui/Title";
 import { NumberContainer } from "../components/game/NumberContainer";
+import { Card } from "../components/ui/Card";
+import { Colors } from "../../utils/colors";
+import { InstructionText } from "../components/ui/InstructionText";
 
 const generateRandomNumber = (min, max, exclude) => {
   const randomNumber = Math.floor(Math.random() * (max - min) + min);
@@ -16,14 +19,15 @@ let minNum = 1;
 let maxNum = 100;
 
 export const GameScreen = ({ userNumber, onGameOver }) => {
-  const initialGuess = generateRandomNumber(minNum, maxNum, userNumber);
+  const initialGuess = generateRandomNumber(1, 100, userNumber);
+
   const [currentGuess, setCurrentGuess] = useState(initialGuess);
 
   useEffect(() => {
     if (currentGuess === userNumber) {
-      onGameOver()
+      onGameOver();
     }
-  }, [currentGuess])
+  }, [currentGuess, userNumber, onGameOver]);
 
   const nextGuessHandler = (direction) => {
     if (
@@ -47,28 +51,27 @@ export const GameScreen = ({ userNumber, onGameOver }) => {
     setCurrentGuess(newRandomNumber);
   };
 
-
-
   return (
     <>
       <View style={styles.container}>
         <Title>Opponent's Guess</Title>
         <NumberContainer>{currentGuess}</NumberContainer>
-        <View style={{ justifyContent: "center" }}>
-          <Text>Higher or lower?</Text>
-        </View>
+        <Card>
+          <InstructionText>Higher or lower?</InstructionText>
         <View style={styles.buttonsContainer}>
           <View style={styles.singleButtonContainer}>
-            <PrimaryButton onPress={() =>nextGuessHandler("lower")}>
+            <PrimaryButton onPress={() => nextGuessHandler("lower")}>
               -
             </PrimaryButton>
           </View>
           <View style={styles.singleButtonContainer}>
-            <PrimaryButton onPress={() =>nextGuessHandler("higher")}>
+            <PrimaryButton onPress={() => nextGuessHandler("higher")}>
               +
             </PrimaryButton>
           </View>
         </View>
+                </Card>
+
       </View>
     </>
   );
@@ -81,8 +84,10 @@ const styles = StyleSheet.create({
   },
   buttonsContainer: {
     flexDirection: "row",
+    marginTop: 20
   },
   singleButtonContainer: {
     flex: 1,
   },
+
 });

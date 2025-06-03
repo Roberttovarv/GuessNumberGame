@@ -4,19 +4,35 @@ import { LinearGradient } from "expo-linear-gradient";
 import { useState } from "react";
 
 import { StartGameScreen } from "./src/screens/StartGameScreen";
+import { GameOverScreen } from "./src/screens/GameOverScreen.js";
 import { GameScreen } from "./src/screens/GameScreen.js";
 
 export default function App() {
   const [userNumber, setUserNumber] = useState();
-  
-  const pickednNumberHandler = (pickedNumber) => {
-    setUserNumber(pickedNumber)
-  }
+  const [gameIsOver, setGameIsOver] = useState(true);
 
-  let screen = <StartGameScreen onPickNumber={pickednNumberHandler}/>
+  const pickednNumberHandler = (pickedNumber) => {
+    setUserNumber(pickedNumber);
+    setGameIsOver(false)
+  };
+
+  const gameOverHandler = () => {
+    setGameIsOver(true);
+  };
+
+  let screen = (
+    <StartGameScreen
+      onPickNumber={pickednNumberHandler}
+      onGameOver={gameOverHandler}
+    />
+  );
 
   if (userNumber) {
-    screen = <GameScreen userNumber={userNumber}/>
+    screen = <GameScreen userNumber={userNumber} onGameOver={gameOverHandler}/>;
+  }
+
+  if (gameIsOver && userNumber) {
+    screen = <GameOverScreen />;
   }
 
   return (
@@ -29,7 +45,7 @@ export default function App() {
         source={require("./assets/images/dices.png")}
         resizeMode="cover"
         style={styles.rootContainer}
-        imageStyle={{opacity:0.15}}
+        imageStyle={{ opacity: 0.15 }}
       >
         <SafeAreaView style={styles.rootContainer}>{screen}</SafeAreaView>
       </ImageBackground>

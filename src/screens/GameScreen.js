@@ -1,4 +1,4 @@
-import { useState } from "react";
+import { useState, useEffect } from "react";
 import { Text, StyleSheet, View, Alert } from "react-native";
 import { PrimaryButton } from "../components/ui/PrimaryButton";
 import { Title } from "../components/ui/Title";
@@ -15,9 +15,15 @@ const generateRandomNumber = (min, max, exclude) => {
 let minNum = 1;
 let maxNum = 100;
 
-export const GameScreen = ({ userNumber }) => {
+export const GameScreen = ({ userNumber, onGameOver }) => {
   const initialGuess = generateRandomNumber(minNum, maxNum, userNumber);
   const [currentGuess, setCurrentGuess] = useState(initialGuess);
+
+  useEffect(() => {
+    if (currentGuess === userNumber) {
+      onGameOver()
+    }
+  }, [currentGuess])
 
   const nextGuessHandler = (direction) => {
     if (
@@ -26,7 +32,7 @@ export const GameScreen = ({ userNumber }) => {
     ) {
       Alert.alert(
         "Error",
-        "You put a paramete that doesnt match with your number",
+        "You put a parameter that doesnt match with your number",
         [{ text: "Sorry!", style: "cancel" }]
       );
       return;
@@ -40,6 +46,8 @@ export const GameScreen = ({ userNumber }) => {
     const newRandomNumber = generateRandomNumber(minNum, maxNum, currentGuess);
     setCurrentGuess(newRandomNumber);
   };
+
+
 
   return (
     <>

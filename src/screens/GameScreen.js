@@ -1,10 +1,12 @@
 import { useState, useEffect } from "react";
 import { Text, StyleSheet, View, Alert } from "react-native";
+import { Ionicons } from "@expo/vector-icons";
+
+
 import { PrimaryButton } from "../components/ui/PrimaryButton";
 import { Title } from "../components/ui/Title";
 import { NumberContainer } from "../components/game/NumberContainer";
 import { Card } from "../components/ui/Card";
-import { Colors } from "../../utils/colors";
 import { InstructionText } from "../components/ui/InstructionText";
 
 const generateRandomNumber = (min, max, exclude) => {
@@ -20,8 +22,8 @@ let maxNum = 100;
 
 export const GameScreen = ({ userNumber, onGameOver }) => {
   const initialGuess = generateRandomNumber(1, 100, userNumber);
-
   const [currentGuess, setCurrentGuess] = useState(initialGuess);
+
 
   useEffect(() => {
     if (currentGuess === userNumber) {
@@ -57,16 +59,16 @@ export const GameScreen = ({ userNumber, onGameOver }) => {
         <Title>Opponent's Guess</Title>
         <NumberContainer>{currentGuess}</NumberContainer>
         <Card>
-          <InstructionText>Higher or lower?</InstructionText>
+          <InstructionText style>Higher or lower?</InstructionText>
         <View style={styles.buttonsContainer}>
           <View style={styles.singleButtonContainer}>
             <PrimaryButton onPress={() => nextGuessHandler("lower")}>
-              -
+              <Ionicons name="remove" size={24} />
             </PrimaryButton>
           </View>
           <View style={styles.singleButtonContainer}>
             <PrimaryButton onPress={() => nextGuessHandler("higher")}>
-              +
+              <Ionicons name="add" size={24} />
             </PrimaryButton>
           </View>
         </View>

@@ -15,8 +15,7 @@
     },
     "ios": {
       "supportsTablet": true,
-          "backgroundColor": "#000000"
-
+      "backgroundColor": "#000000"
     },
     "android": {
       "adaptiveIcon": {
@@ -27,6 +26,9 @@
     },
     "web": {
       "favicon": "./assets/favicon.png"
-    }
+    },
+    "plugins": [
+      "expo-font"
+    ]
   }
 }

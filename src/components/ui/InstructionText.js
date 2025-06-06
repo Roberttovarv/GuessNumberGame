@@ -11,6 +11,6 @@ const styles = StyleSheet.create({
     text: {
         color: Colors.text300,
         fontSize: 24,
-        fontFamily: 'open-sans'
+        fontFamily: 'open-sans',
     }
 })

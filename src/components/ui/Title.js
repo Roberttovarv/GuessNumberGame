@@ -12,13 +12,14 @@ export const Title = ({children}) => {
 const styles = StyleSheet.create({
       title: {
     fontFamily: 'open-sans-bold',
-    fontSize: 18,
+    fontSize: 24,
+    borderRadius: 8,
     color: "white",
     textAlign: "center",
     borderWidth: 2,
     borderColor: "white",
     padding: 12,
-    backgroundColor: Colors.primary500 + "4D"
+    backgroundColor: Colors.primary500 + "BF"
 
   }
 })

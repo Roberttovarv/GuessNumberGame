@@ -13,11 +13,11 @@ export const GuessLogItem = ({ roundNumber, guess }) => {
 const styles = StyleSheet.create({
   listItem: {
     borderColor: Colors.primary500,
-    borderWidth: 1,
+    borderWidth: 2,
     borderRadius: 40,
     padding: 12,
     marginVertical: 8,
-    backgroundColor: Colors.text500,
+    backgroundColor: Colors.text300,
     flexDirection: "row",
     justifyContent: "space-between",
     width: '100%',

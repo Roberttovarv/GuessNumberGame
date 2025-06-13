@@ -19,7 +19,9 @@ const styles = StyleSheet.create({
     borderWidth: 2,
     borderColor: "white",
     padding: 12,
-    backgroundColor: Colors.primary500 + "BF"
+    backgroundColor: Colors.primary500 + "BF",
+    maxWidth: "80%",
+    minWidth: "60%"
 
   }
 })

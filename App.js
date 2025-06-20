@@ -56,11 +56,13 @@ export default function App() {
   }
 
   return (
+    <>
+    <StatusBar barStyle="dark-content" showHiddenTransition={true}/>
     <LinearGradient
       colors={["#f75cab", "#f5e4a9"]}
       style={styles.rootContainer}
-    >
-      <StatusBar style="light" />
+      >
+      <StatusBar style="light" translucent={true} hidden={true}/>
       <ImageBackground
         source={require("./assets/images/dices.png")}
         resizeMode="cover"
@@ -70,6 +72,7 @@ export default function App() {
         <SafeAreaView style={styles.rootContainer}>{screen}</SafeAreaView>
       </ImageBackground>
     </LinearGradient>
+        </>
   );
 }
 

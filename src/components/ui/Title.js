@@ -1,4 +1,4 @@
-import { Text, StyleSheet } from "react-native"
+import { Text, StyleSheet, Platform } from "react-native"
 import { Colors } from "../../../utils/colors"
 
 export const Title = ({children}) => {
@@ -16,7 +16,7 @@ const styles = StyleSheet.create({
     borderRadius: 8,
     color: "white",
     textAlign: "center",
-    borderWidth: 2,
+    borderWidth: Platform.select({ios: 0, android: 2}),
     borderColor: "white",
     padding: 12,
     backgroundColor: Colors.primary500 + "BF",

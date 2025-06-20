@@ -17,17 +17,17 @@ const styles = StyleSheet.create ({
     container:{
         borderWidth: 4,
         borderColor: Colors.text300,
-        padding: deviceWidth < 380 ? 12 : 24,
-        margin: deviceWidth < 380 ? 12 : 24,
+        padding: deviceWidth < 400 ? 12 : 0,
+        margin: deviceWidth < 400 ? 12 : 0,
         borderRadius: 8,
         alignItems: "center",
         justifyContent: "center",
         backgroundColor: Colors.primary500 + "BF",
-        minWidth: "80%"
+        minWidth: "60%"
     },
     numberText: {
         color: Colors.text300,
-        fontSize: deviceWidth < 380 ? 24 : 36,
+        fontSize: deviceWidth < 400 ? 24 : 36,
         fontFamily: 'open-sans-bold'
     }
 

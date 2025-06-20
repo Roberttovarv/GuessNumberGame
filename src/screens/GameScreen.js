@@ -1,5 +1,11 @@
 import { useState, useEffect } from "react";
-import { Text, StyleSheet, View, Alert, FlatList } from "react-native";
+import {
+  useWindowDimensions,
+  StyleSheet,
+  View,
+  Alert,
+  FlatList,
+} from "react-native";
 import { Ionicons } from "@expo/vector-icons";
 import { GuessLogItem } from "../components/game/GuessLogItem";
 
@@ -24,6 +30,7 @@ export const GameScreen = ({ userNumber, onGameOver }) => {
   const initialGuess = generateRandomNumber(1, 100, userNumber);
   const [currentGuess, setCurrentGuess] = useState(initialGuess);
   const [guessRounds, setGuessRounds] = useState([initialGuess]);
+  const { width, height } = useWindowDimensions();
 
   useEffect(() => {
     if (currentGuess === userNumber) {
@@ -59,42 +66,69 @@ export const GameScreen = ({ userNumber, onGameOver }) => {
     setGuessRounds((PrevGuessRounds) => [newRandomNumber, ...PrevGuessRounds]);
   };
 
-  const guessRoundListLenght = guessRounds.length
+  const guessRoundListLenght = guessRounds.length;
 
+  let content = (
+    <>
+      <NumberContainer>{currentGuess}</NumberContainer>
+      <Card>
+        <InstructionText style>Higher or lower?</InstructionText>
+        <View style={styles.buttonsContainer}>
+          <View style={styles.singleButtonContainer}>
+            <PrimaryButton onPress={() => nextGuessHandler("lower")}>
+              <Ionicons name="remove" size={24} />
+            </PrimaryButton>
+          </View>
+          <View style={styles.singleButtonContainer}>
+            <PrimaryButton onPress={() => nextGuessHandler("higher")}>
+              <Ionicons name="add" size={24} />
+            </PrimaryButton>
+          </View>
+        </View>
+      </Card>
+    </>
+  );
+
+  if (width > 500) {
+    content = (
+      <>
+        <View style={styles.buttonsContainerWide}>
+          <View>
+            <PrimaryButton onPress={() => nextGuessHandler("lower")}>
+              <Ionicons name="remove" size={24} />
+            </PrimaryButton>
+          </View>
+          <View
+            style={{ alignItems: "center", justifyContent: "center" }}
+          >
+            <NumberContainer>{currentGuess}</NumberContainer>
+          </View>
+          <View>
+            <PrimaryButton onPress={() => nextGuessHandler("higher")}>
+              <Ionicons name="add" size={24} />
+            </PrimaryButton>
+          </View>
+        </View>
+      </>
+    );
+  }
 
   return (
     <>
       <View style={styles.container}>
         <Title>Opponent's Guess</Title>
-        <NumberContainer>{currentGuess}</NumberContainer>
-        <Card>
-          <InstructionText style>Higher or lower?</InstructionText>
-          <View style={styles.buttonsContainer}>
-            <View style={styles.singleButtonContainer}>
-              <PrimaryButton onPress={() => nextGuessHandler("lower")}>
-                <Ionicons name="remove" size={24} />
-              </PrimaryButton>
-            </View>
-            <View style={styles.singleButtonContainer}>
-              <PrimaryButton onPress={() => nextGuessHandler("higher")}>
-                <Ionicons name="add" size={24} />
-              </PrimaryButton>
-            </View>
-          </View>
-        </Card>
+        {content}
         <View style={styles.listContainer}>
-          <FlatList 
-          data={guessRounds} 
-          renderItem={(itemData) => (
-                        <GuessLogItem 
-                        roundNumber={guessRoundListLenght - itemData.index} 
-                        guess={itemData.item} 
-                        />
-                      )}
-          keyExtractor={(item) => item} 
-          
+          <FlatList
+            data={guessRounds}
+            renderItem={(itemData) => (
+              <GuessLogItem
+                roundNumber={guessRoundListLenght - itemData.index}
+                guess={itemData.item}
+              />
+            )}
+            keyExtractor={(item) => item}
           />
-          {/* {guessRounds.map(guessRound => <Text key={guessRound}>{guessRound}</Text>)} */}
         </View>
       </View>
     </>
@@ -105,17 +139,22 @@ const styles = StyleSheet.create({
   container: {
     flex: 1,
     padding: 24,
-    alignItems: "center"
+    alignItems: "center",
   },
   buttonsContainer: {
     flexDirection: "row",
     marginTop: 20,
+  },
+  buttonsContainerWide: {
+    flexDirection: "row",
+    alignItems: "center",
+    flex: 1,
   },
   singleButtonContainer: {
     flex: 1,
   },
   listContainer: {
     flex: 1,
-    padding: 16
-  }
+    padding: 16,
+  },
 });
